@@ -8,8 +8,6 @@ from posts.models import Post, Comment
 from .permissions import IsAuthorOrReadOnly
 
 
-
-
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
@@ -29,7 +27,8 @@ class CommentsViewSet(viewsets.ModelViewSet):
         return get_object_or_404(Post, pk=self.kwargs['post_id']).comments
 
     def perform_create(self, serializer):
+        post = get_object_or_404(Post, pk=self.kwargs['post_id'])
         serializer.save(
             author=self.request.user, 
-            post_id=self.kwargs['post_id']
+            post_id=post.id
             )

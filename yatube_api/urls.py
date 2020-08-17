@@ -22,7 +22,6 @@ from rest_framework.authtoken import views
 from api.views import PostViewSet, CommentsViewSet
     
 
-
 router = DefaultRouter()
 router.register(r'api/v1/posts', PostViewSet)
 router.register(
@@ -32,11 +31,10 @@ router.register(
     )
 
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/api-token-auth/', views.obtain_auth_token),
-    path('', include(router.urls))
+    path('api/', include('api.urls'))
 ]
 
 
